@@ -1,9 +1,9 @@
 import os, sys;
 from github import Github;
 
-def getGithubLogin():
+def getGithubLogin(arguments):
     try:
-        file = open("githubLogin.txt", "r");
+        file = open(arguments[0][:-len("Git push/gitPush.py")] + "githubLogin.txt", "r");
         fileData = file.readlines();
 
         return fileData;
@@ -26,8 +26,8 @@ def gitCommit(arguments):
         print('You miss to write the commit description.');
         return False;
 
-    email = getGithubLogin()[0][:-len("\n")];
-    mdp = getGithubLogin()[1][:-len("\n")];
+    email = getGithubLogin(arguments)[0][:-len("\n")];
+    mdp = getGithubLogin(arguments)[1][:-len("\n")];
 
     if email == "False" or mdp == "False":
         return False;
@@ -58,7 +58,7 @@ def setLoginInfos():
     print("What is your github account password ?");
     password = input();
 
-    file = open("githubLogin.txt","a+");
+    file = open(arguments[0][:-len("Git push/gitPush.py")] + "githubLogin.txt","a+");
     file.write(email + "\n");
     file.write(password + "\n");
     file.close();
